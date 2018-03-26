@@ -26,5 +26,6 @@ export interface NavigationController {
 
 export interface NavigationControllerBarOptions {
 	title?: string;
+	center?: JSX.Element;
 	right?: JSX.Element;
 }
