@@ -46,13 +46,15 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 		return (
 			<Toolbar>
 				{
-					previousRoute && (
+					options && options.left ? (
+						<div className="left">{options.left}</div>
+					) : (previousRoute && (
 						<div className="left">
 							<BackButton onClick={this.props.pop}>
 								{previousRoute.title}
 							</BackButton>
 						</div>
-					)
+					))
 				}
 				{
 					options && options.center ? (
