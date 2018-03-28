@@ -58,7 +58,7 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 					options && options.center ? (
 						<div className="center">{options.center}</div>
 					) : (
-						<div className="center">{options && options.title ? options.title : route.title}</div>
+						<div className="center">{route.title}</div>
 					)
 				}
 				{
