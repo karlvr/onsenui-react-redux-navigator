@@ -1,6 +1,6 @@
 {
   "name": "onsenui-react-redux-navigator",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "An integration between Redux and Onsen UI's Navigator.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -14,18 +14,20 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@types/prop-types": "^15.5.2",
-    "@types/react": "^16.0.41",
+    "@types/react": "^16.0.0",
     "@types/react-onsenui": "^2.8.5",
     "@types/react-redux": "^5.0.15",
     "typescript": "^2.7.2"
   },
   "dependencies": {
-    "onsenui": "^2.9.2",
-    "react": "^16.2.0",
-    "react-onsenui": "^1.10.0",
-    "react-redux": "^5.0.7",
-    "redux": "^3.7.2",
     "typescript-fsa": "^2.5.0",
     "typescript-fsa-reducers": "^0.4.5"
+  },
+  "peerDependencies": {
+    "onsenui": "^2.9.2",
+    "react": "^16.0.0",
+    "react-onsenui": "^1.10.0",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2"
   }
 }
