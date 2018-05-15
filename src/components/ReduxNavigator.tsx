@@ -102,6 +102,7 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 
 		return (
 			<RouterNavigator 
+				{...this.props}
 				routeConfig={routeConfig} 
 				renderPage={this.renderPage} 
 				onPostPush={this.props.onPostPush}

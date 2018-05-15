@@ -11,7 +11,7 @@ import { Dispatch } from 'redux';
 
 /* Import module actions */
 import * as actions from '../actions';
-import { RouterUtilState } from 'react-onsenui';
+import { RouterUtilState, RouterNavigator, NavigatorAnimationTypes } from 'react-onsenui';
 import { Route } from '../types';
 import { StoreState } from '../reducer';
 
@@ -26,6 +26,14 @@ export interface OwnProps {
 	id: string;
 	rootRoute: Route;
 	stateSelector: (store: any) => StoreState;
+
+	onPrePush?(): void,
+	onPostPush?(): void,
+	onPrePop?(): void,
+	onPostPop?(): void,
+	animation?: NavigatorAnimationTypes,
+	animationOptions?: AnimationOptions,
+	swipeable?: boolean,
 }
 
 /**
