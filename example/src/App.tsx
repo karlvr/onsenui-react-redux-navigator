@@ -64,6 +64,7 @@ class Tabs extends React.Component {
 								},
 							}}
 							stateSelector={routingStoreStateSelector}
+							swipeable={true}
 						/>
 					</Page>
 				),

@@ -47,6 +47,7 @@ declare module 'react-onsenui' {
 			animation?: NavigatorAnimationTypes,
 			animationOptions?: AnimationOptions,
 			swipeable?: boolean,
+			swipePop?: (options?: PageTransitionOptions) => void,
 		}, any> {
 			pages: any[];
 			routeConfig: RouterUtilState;

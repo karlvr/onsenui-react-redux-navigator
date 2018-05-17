@@ -7,7 +7,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Props, Actions, OwnProps } from '../containers/ReduxNavigator';
-import { RouterNavigator, Toolbar, BackButton } from 'react-onsenui';
+import { RouterNavigator, Toolbar, BackButton, PageTransitionOptions } from 'react-onsenui';
 import { Route, NavigationController, NavigationControllerBarOptions, NavigatorContext } from '../types';
 
 export default class extends React.Component<Props & OwnProps & Actions> implements NavigationController {
@@ -94,6 +94,14 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 		this.props.deinit();
 	}
 
+	routerNavigator: React.RefObject<RouterNavigator> = React.createRef();
+
+	swipePop = (options?: PageTransitionOptions) => {
+		if (this.routerNavigator.current) {
+			this.routerNavigator.current.popPage(options);
+		}
+	}
+
 	render() {
 		const { routeConfig } = this.props;
 		if (!routeConfig) {
@@ -103,10 +111,12 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 		return (
 			<RouterNavigator 
 				{...this.props}
+				ref={this.routerNavigator}
 				routeConfig={routeConfig} 
 				renderPage={this.renderPage} 
 				onPostPush={this.props.onPostPush}
 				onPostPop={this.props.onPostPop}
+				swipePop={this.swipePop}
 			/>
 		);
 	}
