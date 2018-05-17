@@ -1,6 +1,6 @@
 {
   "name": "onsenui-react-redux-navigator",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "An integration between Redux and Onsen UI's Navigator.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
