@@ -11,7 +11,7 @@ import { Dispatch } from 'redux';
 
 /* Import module actions */
 import * as actions from '../actions';
-import { RouterUtilState, RouterNavigator, NavigatorAnimationTypes } from 'react-onsenui';
+import { RouterUtilState, RouterNavigator, NavigatorAnimationTypes, AnimationOptions } from 'react-onsenui';
 import { Route } from '../types';
 import { StoreState } from '../reducer';
 
