@@ -1,9 +1,9 @@
 import { reducerWithInitialState, ReducerBuilder } from 'typescript-fsa-reducers'
-import { RouterUtil, RouterUtilState } from 'react-onsenui'
+import { RouterUtil, RouterUtilState as RealRouterUtilState } from 'react-onsenui'
 
 /* Import our module's actions */
 import * as actions from './actions'
-import { Route } from './types'
+import { Route, RouterUtilState } from './types'
 
 /**
  * Export the StoreState interface for this module. We always name this interface
@@ -30,11 +30,6 @@ let routeAutoKeyCounter = 0
 
 /** Ensure the route object is complete before it enters the store. */
 function completeRoute(route: Route): Route {
-	/* Support a static createRoute method on the route component class. */
-	if ((route.component as any).createRoute) {
-		route = (route.component as any).createRoute(route)
-	}
-
 	if (!route.key) {
 		/* Auto-assign a key for the route if one wasn't given. */
 		route = { ...route, key: `route-${routeAutoKeyCounter++}` }
@@ -62,26 +57,26 @@ export const reducer = reducerWithInitialState(INITIAL_STATE)
 		let result = { ...state }
 		result.stacks = { ...result.stacks }
 		result.stacks[payload.navigator] = RouterUtil.push(
-			{ routeConfig: result.stacks[payload.navigator], 
+			{ routeConfig: result.stacks[payload.navigator] as RealRouterUtilState, 
 			route: completeRoute(payload.route) })
 		return result
 	})
 	.case(actions.pop, (state, navigatorId) => {
 		let result = { ...state }
 		result.stacks = { ...result.stacks }
-		result.stacks[navigatorId] = RouterUtil.pop({ routeConfig: result.stacks[navigatorId] })
+		result.stacks[navigatorId] = RouterUtil.pop({ routeConfig: result.stacks[navigatorId] as RealRouterUtilState })
 		return result
 	})
 	.case(actions.postPush, (state, navigatorId) => {
 		let result = { ...state }
 		result.stacks = { ...result.stacks }
-		result.stacks[navigatorId] = RouterUtil.postPush(result.stacks[navigatorId])
+		result.stacks[navigatorId] = RouterUtil.postPush(result.stacks[navigatorId] as RealRouterUtilState)
 		return result
 	})
 	.case(actions.postPop, (state, navigatorId) => {
 		let result = { ...state }
 		result.stacks = { ...result.stacks }
-		result.stacks[navigatorId] = RouterUtil.postPop(result.stacks[navigatorId])
+		result.stacks[navigatorId] = RouterUtil.postPop(result.stacks[navigatorId] as RealRouterUtilState)
 		return result
 	})
 	

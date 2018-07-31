@@ -11,23 +11,24 @@ import { Dispatch } from 'redux'
 
 /* Import module actions */
 import * as actions from '../actions'
-import { RouterUtilState, RouterNavigator, NavigatorAnimationTypes, AnimationOptions } from 'react-onsenui'
-import { Route } from '../types'
+import { NavigatorAnimationTypes, AnimationOptions } from 'react-onsenui'
+import { Route, RouterUtilState, ComponentRegistry } from '../types'
 import { StoreState } from '../reducer'
 
-/**
- * Interface for properties that the container passes to the component.
- */
 export interface Props {
 	routeConfig: RouterUtilState
 }
 
+/**
+ * Interface for properties that the container passes to the component.
+ */
 export interface OwnProps {
 	id: string
 	rootRoute: Route
 	animation?: NavigatorAnimationTypes,
 	animationOptions?: AnimationOptions,
 	swipeable?: boolean,
+	componentRegistry: ComponentRegistry
 
 	/* tslint:disable-next-line:no-any */
 	stateSelector: (store: any) => StoreState
@@ -43,7 +44,6 @@ export interface OwnProps {
  * The component's `this.props` is typed `Props & Actions`.
  */
 export interface Actions {
-	push: (route: Route) => void
 	pop: () => void
 	onPostPush: () => void
 	onPostPop: () => void
@@ -68,9 +68,6 @@ const mapDispatchToProps = (dispatch: Dispatch<{}>, ownProps: OwnProps): Actions
 	},
 	deinit: () => {
 		dispatch(actions.deinit(ownProps.id))
-	},
-	push: (route) => {
-		dispatch(actions.push({ route, navigator: ownProps.id }))
 	},
 	pop: () => {
 		dispatch(actions.pop(ownProps.id))

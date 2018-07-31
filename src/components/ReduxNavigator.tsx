@@ -6,8 +6,8 @@
 
 import * as React from 'react'
 import * as PropTypes from 'prop-types'
-import { Props, Actions, OwnProps } from '../containers/ReduxNavigator'
-import { RouterNavigator, Toolbar, BackButton, PageTransitionOptions } from 'react-onsenui'
+import { Actions, OwnProps, Props } from '../containers/ReduxNavigator'
+import { RouterNavigator, Toolbar, BackButton, PageTransitionOptions, RouterUtilState } from 'react-onsenui'
 import { Route, NavigationController, NavigationControllerBarOptions, NavigatorContext } from '../types'
 
 export default class extends React.Component<Props & OwnProps & Actions> implements NavigationController {
@@ -16,14 +16,10 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 		navigationController: PropTypes.object,
 	}
 
-	routerNavigator: React.RefObject<RouterNavigator> = React.createRef()
+	private routerNavigator: React.RefObject<RouterNavigator> = React.createRef()
 
-	push = (route: Route) => {
-		this.props.push(route)
-	}
-
-	pop = () => {
-		this.props.pop()
+	getNavigatorId = () => {
+		return this.props.id
 	}
 
 	previousRoute = (route: Route) => {
@@ -74,17 +70,6 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 		)
 	}
 
-	renderPage = (route: Route, navigator: RouterNavigator) => {
-		const props = {
-			...route.props,
-			route,
-		}
-
-		return (
-			<route.component {...props} key={route.key} />
-		)
-	}
-
 	componentWillMount() {
 		/* When the navigator is mounted, if we don't already have config we initialise using our rootRoute. */
 		if (!this.props.routeConfig && this.props.rootRoute) {
@@ -94,12 +79,6 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 
 	componentWillUnmount() {
 		this.props.deinit()
-	}
-
-	swipePop = (options?: PageTransitionOptions) => {
-		if (this.routerNavigator.current) {
-			this.routerNavigator.current.popPage(options)
-		}
 	}
 
 	render() {
@@ -112,7 +91,7 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 			<RouterNavigator 
 				{...this.props}
 				ref={this.routerNavigator}
-				routeConfig={routeConfig} 
+				routeConfig={routeConfig as RouterUtilState} 
 				renderPage={this.renderPage} 
 				onPostPush={this.props.onPostPush}
 				onPostPop={this.props.onPostPop}
@@ -125,5 +104,34 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 		return {
 			navigationController: this,
 		}
+	}
+
+	private swipePop = (options?: PageTransitionOptions) => {
+		if (this.routerNavigator.current) {
+			this.routerNavigator.current.popPage(options)
+		}
+	}
+
+	private renderPage = (route: Route, navigator: RouterNavigator) => {
+		const props = {
+			...route.props,
+			route,
+		}
+
+		const Component = this.props.componentRegistry[route.component]
+		if (!Component) {
+			throw new Error(`Cannot find component: ${route.component}`)
+		}
+
+		/* Support a static createRoute method on the route component class. */
+		/* tslint:disable-next-line:no-any */
+		const AnyComponent = Component as any
+		if (AnyComponent.createRoute) {
+			route = AnyComponent.createRoute(route)
+		}
+
+		return (
+			<Component {...props} key={route.key} />
+		)
 	}
 }
