@@ -7,7 +7,7 @@
 import * as React from 'react'
 import * as PropTypes from 'prop-types'
 import { Actions, OwnProps, Props } from '../containers/ReduxNavigator'
-import { RouterNavigator, Toolbar, BackButton, PageTransitionOptions, RouterUtilState } from 'react-onsenui'
+import { RouterNavigator, Toolbar, BackButton, PageTransitionOptions, RouterUtilState, Page } from 'react-onsenui'
 import { Route, NavigationController, NavigationControllerBarOptions, NavigatorContext } from '../types'
 
 export default class extends React.Component<Props & OwnProps & Actions> implements NavigationController {
@@ -121,7 +121,7 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 		const Component = this.props.componentRegistry[route.component]
 		if (!Component) {
 			return (
-				<div><p style={{color: 'red'}}><strong>Cannot find component: {route.component}</strong></p></div>
+				<Page key={route.key} renderToolbar={this.renderErrorToolbar.bind(this, route)}><p style={{color: 'red'}}><strong>Cannot find component: {route.component !== undefined ? route.component : 'undefined'}</strong></p></Page>
 			)
 		}
 
@@ -135,5 +135,9 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 		return (
 			<Component {...props} key={route.key} />
 		)
+	}
+
+	private renderErrorToolbar = (route: Route) => {
+		return this.renderToolbar(route)
 	}
 }
