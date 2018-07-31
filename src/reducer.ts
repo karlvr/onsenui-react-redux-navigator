@@ -12,6 +12,7 @@ import { Route, RouterUtilState } from './types'
  * all of the properties down the tree.
  */
 export interface StoreState {
+	readonly nextRouteKey: number
 	readonly stacks: Stacks	
 }
 
@@ -23,16 +24,15 @@ export interface Stacks {
  * The initial store state for this module.
  */
 const INITIAL_STATE: StoreState = {
+	nextRouteKey: 0,
 	stacks: {},
 }
 
-let routeAutoKeyCounter = 0
-
 /** Ensure the route object is complete before it enters the store. */
-function completeRoute(route: Route): Route {
+function completeRoute(route: Route, nextRouteKey: number): Route {
 	if (!route.key) {
 		/* Auto-assign a key for the route if one wasn't given. */
-		route = { ...route, key: `route-${routeAutoKeyCounter++}` }
+		route = { ...route, key: `route-${nextRouteKey}` }
 	}
 	return route
 }
@@ -44,7 +44,8 @@ export const reducer = reducerWithInitialState(INITIAL_STATE)
 	.case(actions.init, (state, payload) => {
 		let result = { ...state }
 		result.stacks = { ...result.stacks }
-		result.stacks[payload.navigator] = RouterUtil.init([ completeRoute(payload.route) ])
+		result.stacks[payload.navigator] = RouterUtil.init([ completeRoute(payload.route, state.nextRouteKey) ])
+		result.nextRouteKey = state.nextRouteKey + 1
 		return result
 	})
 	.case(actions.deinit, (state, navigatorId) => {
@@ -58,7 +59,8 @@ export const reducer = reducerWithInitialState(INITIAL_STATE)
 		result.stacks = { ...result.stacks }
 		result.stacks[payload.navigator] = RouterUtil.push(
 			{ routeConfig: result.stacks[payload.navigator] as RealRouterUtilState, 
-			route: completeRoute(payload.route) })
+			route: completeRoute(payload.route, state.nextRouteKey) })
+		result.nextRouteKey = state.nextRouteKey + 1
 		return result
 	})
 	.case(actions.pop, (state, navigatorId) => {
