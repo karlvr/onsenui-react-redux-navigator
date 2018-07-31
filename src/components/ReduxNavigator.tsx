@@ -120,7 +120,9 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 
 		const Component = this.props.componentRegistry[route.component]
 		if (!Component) {
-			throw new Error(`Cannot find component: ${route.component}`)
+			return (
+				<div><p style={{color: 'red'}}><strong>Cannot find component: {route.component}</strong></p></div>
+			)
 		}
 
 		/* Support a static createRoute method on the route component class. */
