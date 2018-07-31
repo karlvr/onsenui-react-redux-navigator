@@ -44,7 +44,6 @@ export interface OwnProps {
  * The component's `this.props` is typed `Props & Actions`.
  */
 export interface Actions {
-	pop: () => void
 	onPostPush: () => void
 	onPostPop: () => void
 	init: (route: Route) => void
@@ -68,9 +67,6 @@ const mapDispatchToProps = (dispatch: Dispatch<{}>, ownProps: OwnProps): Actions
 	},
 	deinit: () => {
 		dispatch(actions.deinit(ownProps.id))
-	},
-	pop: () => {
-		dispatch(actions.pop(ownProps.id))
 	},
 	onPostPush: () => {
 		dispatch(actions.postPush(ownProps.id))

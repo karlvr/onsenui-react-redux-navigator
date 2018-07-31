@@ -5,16 +5,13 @@
  */
 
 import * as React from 'react'
-import * as PropTypes from 'prop-types'
 import { Actions, OwnProps, Props } from '../containers/ReduxNavigator'
-import { RouterNavigator, Toolbar, BackButton, PageTransitionOptions, RouterUtilState, Page } from 'react-onsenui'
-import { Route, NavigationController, NavigationControllerBarOptions, NavigatorContext } from '../types'
+import { RouterNavigator, PageTransitionOptions, RouterUtilState, Page } from 'react-onsenui'
+import { Route, NavigationController } from '../types'
+import { NavigationControllerContext } from '../NavigatorContext'
+import NavigatorToolbar from '../containers/NavigatorToolbar'
 
 export default class extends React.Component<Props & OwnProps & Actions> implements NavigationController {
-
-	static childContextTypes = {
-		navigationController: PropTypes.object,
-	}
 
 	private routerNavigator: React.RefObject<RouterNavigator> = React.createRef()
 
@@ -39,37 +36,6 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 		}
 	}
 
-	renderToolbar = (route: Route, options?: NavigationControllerBarOptions): JSX.Element => {
-		const previousRoute = this.previousRoute(route)
-		return (
-			<Toolbar>
-				{
-					options && options.left ? (
-						<div className="left">{options.left}</div>
-					) : (previousRoute && (
-						<div className="left">
-							<BackButton onClick={this.props.pop}>
-								{previousRoute.title}
-							</BackButton>
-						</div>
-					))
-				}
-				{
-					options && options.center ? (
-						<div className="center">{options.center}</div>
-					) : (
-						<div className="center">{route.title}</div>
-					)
-				}
-				{
-					options && options.right && (
-						<div className="right">{options.right}</div>
-					)
-				}
-			</Toolbar>
-		)
-	}
-
 	componentWillMount() {
 		/* When the navigator is mounted, if we don't already have config we initialise using our rootRoute. */
 		if (!this.props.routeConfig && this.props.rootRoute) {
@@ -88,22 +54,18 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 		}
 
 		return (
-			<RouterNavigator 
-				{...this.props}
-				ref={this.routerNavigator}
-				routeConfig={routeConfig as RouterUtilState} 
-				renderPage={this.renderPage} 
-				onPostPush={this.props.onPostPush}
-				onPostPop={this.props.onPostPop}
-				swipePop={this.swipePop}
-			/>
+			<NavigationControllerContext.Provider value={this}>
+				<RouterNavigator 
+					{...this.props}
+					ref={this.routerNavigator}
+					routeConfig={routeConfig as RouterUtilState} 
+					renderPage={this.renderPage} 
+					onPostPush={this.props.onPostPush}
+					onPostPop={this.props.onPostPop}
+					swipePop={this.swipePop}
+				/>
+			</NavigationControllerContext.Provider>
 		)
-	}
-
-	getChildContext(): NavigatorContext {
-		return {
-			navigationController: this,
-		}
 	}
 
 	private swipePop = (options?: PageTransitionOptions) => {
@@ -138,6 +100,8 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 	}
 
 	private renderErrorToolbar = (route: Route) => {
-		return this.renderToolbar(route)
+		return (
+			<NavigatorToolbar route={route} />
+		)
 	}
 }

@@ -14,14 +14,9 @@ export interface Route {
 	readonly props?: {}
 }
 
-export interface NavigatorContext {
-	navigationController: NavigationController
-}
-
 export interface NavigationController {
 	getNavigatorId: () => NavigatorId
 	previousRoute: (route: Route) => Route | undefined
-	renderToolbar: (route: Route, options?: NavigationControllerBarOptions) => React.ReactNode | undefined
 }
 
 export interface NavigationControllerBarOptions {
