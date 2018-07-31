@@ -1,7 +1,6 @@
-import { ReduxNavigator, NavigatorContext } from 'onsenui-react-redux-navigator'
+import { ReduxNavigator } from 'onsenui-react-redux-navigator'
 import { Page, Tabbar, Tab, TabbarRenderTab } from 'react-onsenui'
 import * as React from 'react'
-import * as PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
 import { store, routingStoreStateSelector } from './redux'
 
@@ -11,12 +10,6 @@ import 'onsenui/css/onsenui.css'
 import 'onsenui/css/onsen-css-components.css'
 
 class Tabs extends React.Component {
-
-	static contextTypes = {
-		navigationController: PropTypes.object,
-	}
-
-	context: NavigatorContext
 
 	renderTabs = (): TabbarRenderTab[] => {
 		return [

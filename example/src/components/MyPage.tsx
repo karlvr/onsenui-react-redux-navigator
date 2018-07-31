@@ -5,27 +5,20 @@
  */
 
 import * as React from 'react'
-import * as PropTypes from 'prop-types'
-import { NavigatorContext, RouteProps } from 'onsenui-react-redux-navigator'
+import { RouteProps, NavigatorToolbar, WithNavigationControllerProps } from 'onsenui-react-redux-navigator'
 import { Page, Button } from 'react-onsenui'
 
 import { OwnProps, Props, Actions } from '../containers/MyPage'
 
-export default class MyPage extends React.Component<OwnProps & Props & Actions & RouteProps> {
+export default class MyPage extends React.Component<OwnProps & Props & Actions & RouteProps & WithNavigationControllerProps> {
 
-	static contextTypes = {
-		navigationController: PropTypes.object,
-	}
-
-	context: NavigatorContext
-
-	renderToolbar = () => {
-		return this.context.navigationController.renderToolbar(this.props.route)
-	}
+	renderToolbar = () => (
+		<NavigatorToolbar route={this.props.route} />
+	)
 
 	pushNewPage = () => {
 		this.props.onPush({
-			navigator: this.context.navigationController.getNavigatorId(),
+			navigator: this.props.navigationController.getNavigatorId(),
 			route: {
 				component: 'MyPage',
 				title: `Page ${this.props.index}`,

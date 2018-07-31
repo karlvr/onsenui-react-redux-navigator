@@ -7,7 +7,7 @@ import Component from '../components/MyPage'
 
 import { connect } from 'react-redux'
 import { Dispatch, Action } from 'redux'
-import { navigatorPush, NavigatorPushPayload } from 'onsenui-react-redux-navigator'
+import { navigatorPush, NavigatorPushPayload, withNavigationController } from 'onsenui-react-redux-navigator'
 
 /* Import RootStoreState */
 import { RootStoreState } from '../redux'
@@ -47,4 +47,4 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): Actions => ({
 	},
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Component)
+export default withNavigationController(connect(mapStateToProps, mapDispatchToProps)(Component))
