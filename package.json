@@ -9,7 +9,8 @@
     "clean": "rm -rf ./dist",
     "prepare": "npm run clean && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "update-example": "tsc && rsync -a dist/ example/node_modules/onsenui-react-redux-navigator/dist/"
   },
   "author": "karl@xk72.com",
   "license": "Apache-2.0",
