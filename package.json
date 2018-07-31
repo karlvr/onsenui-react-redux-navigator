@@ -8,7 +8,8 @@
     "build": "tsc",
     "clean": "rm -rf ./dist",
     "prepare": "npm run clean && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "tsc --watch"
   },
   "author": "karl@xk72.com",
   "license": "Apache-2.0",
