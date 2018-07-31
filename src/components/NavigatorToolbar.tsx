@@ -7,7 +7,7 @@
 import * as React from 'react'
 import { Toolbar, BackButton } from 'react-onsenui'
 import { Props, OwnProps, Actions } from '../containers/NavigatorToolbar'
-import { Route, NavigationController } from '../types'
+import { NavigationController } from '../types'
 import { NavigationControllerContext } from '../NavigatorContext'
 
 export default class extends React.Component<Props & Actions & OwnProps> {
@@ -39,7 +39,7 @@ export default class extends React.Component<Props & Actions & OwnProps> {
 					this.props.center ? (
 						<div className="center">{this.props.center}</div>
 					) : (
-						<div className="center">{this.props.route.title}</div>
+						<div className="center">{this.props.title || this.props.route.title}</div>
 					)
 				}
 				{

@@ -22,6 +22,7 @@ export interface Props {
  */
 export interface OwnProps {
 	route: Route
+	title?: string
 	left?: React.ReactNode
 	center?: React.ReactNode
 	right?: React.ReactNode
