@@ -4,45 +4,47 @@
  * Note that this file has a `.tsx` suffix, as it contains React elements.
  */
 
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
-import { Props, Actions, OwnProps } from '../containers/ReduxNavigator';
-import { RouterNavigator, Toolbar, BackButton, PageTransitionOptions } from 'react-onsenui';
-import { Route, NavigationController, NavigationControllerBarOptions, NavigatorContext } from '../types';
+import * as React from 'react'
+import * as PropTypes from 'prop-types'
+import { Props, Actions, OwnProps } from '../containers/ReduxNavigator'
+import { RouterNavigator, Toolbar, BackButton, PageTransitionOptions } from 'react-onsenui'
+import { Route, NavigationController, NavigationControllerBarOptions, NavigatorContext } from '../types'
 
 export default class extends React.Component<Props & OwnProps & Actions> implements NavigationController {
 
 	static childContextTypes = {
 		navigationController: PropTypes.object,
-	};
+	}
+
+	routerNavigator: React.RefObject<RouterNavigator> = React.createRef()
 
 	push = (route: Route) => {
-		this.props.push(route);
+		this.props.push(route)
 	}
 
 	pop = () => {
-		this.props.pop();
+		this.props.pop()
 	}
 
 	previousRoute = (route: Route) => {
-		const routeStack = this.props.routeConfig.routeStack;
-		let n = routeStack.lastIndexOf(route);
+		const routeStack = this.props.routeConfig.routeStack
+		let n = routeStack.lastIndexOf(route)
 		if (n === -1) {
 			/* This route isn't in the stack, so the previous is the last route in the stack, e.g. pushing the given route */
-			n = routeStack.length - 1;
+			n = routeStack.length - 1
 		} else {
 			/* The previous route in the stack is the previous route for this route */
-			n--;
+			n--
 		}
 		if (routeStack.length > n) {
-			return routeStack[n] as Route;
+			return routeStack[n] as Route
 		} else {
-			return undefined;
+			return undefined
 		}
 	}
 
 	renderToolbar = (route: Route, options?: NavigationControllerBarOptions): JSX.Element => {
-		const previousRoute = this.previousRoute(route);
+		const previousRoute = this.previousRoute(route)
 		return (
 			<Toolbar>
 				{
@@ -69,43 +71,41 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 					)
 				}
 			</Toolbar>
-		);
+		)
 	}
 
 	renderPage = (route: Route, navigator: RouterNavigator) => {
 		const props = {
 			...route.props,
 			route,
-		};
+		}
 
 		return (
 			<route.component {...props} key={route.key} />
-		);
+		)
 	}
 
 	componentWillMount() {
 		/* When the navigator is mounted, if we don't already have config we initialise using our rootRoute. */
 		if (!this.props.routeConfig && this.props.rootRoute) {
-			this.props.init(this.props.rootRoute);
+			this.props.init(this.props.rootRoute)
 		}
 	}
 
 	componentWillUnmount() {
-		this.props.deinit();
+		this.props.deinit()
 	}
-
-	routerNavigator: React.RefObject<RouterNavigator> = React.createRef();
 
 	swipePop = (options?: PageTransitionOptions) => {
 		if (this.routerNavigator.current) {
-			this.routerNavigator.current.popPage(options);
+			this.routerNavigator.current.popPage(options)
 		}
 	}
 
 	render() {
-		const { routeConfig } = this.props;
+		const { routeConfig } = this.props
 		if (!routeConfig) {
-			return null;
+			return null
 		}
 
 		return (
@@ -118,12 +118,12 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 				onPostPop={this.props.onPostPop}
 				swipePop={this.swipePop}
 			/>
-		);
+		)
 	}
 
 	getChildContext(): NavigatorContext {
 		return {
 			navigationController: this,
-		};
+		}
 	}
 }
