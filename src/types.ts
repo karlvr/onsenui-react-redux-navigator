@@ -19,12 +19,6 @@ export interface NavigationController {
 	previousRoute: (route: Route) => Route | undefined
 }
 
-export interface NavigationControllerBarOptions {
-	left?: React.ReactNode
-	center?: React.ReactNode
-	right?: React.ReactNode
-}
-
 /** Dummy type so we don't have to expose our internal onsenui types. */
 export type RouterUtilRoute = {}
 

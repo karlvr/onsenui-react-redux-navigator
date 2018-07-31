@@ -7,28 +7,26 @@
 import * as React from 'react'
 import { Toolbar, BackButton } from 'react-onsenui'
 import { Props, OwnProps, Actions } from '../containers/NavigatorToolbar'
-import { Route, NavigationController, NavigationControllerBarOptions } from '../types'
+import { Route, NavigationController } from '../types'
 import { NavigationControllerContext } from '../NavigatorContext'
 
 export default class extends React.Component<Props & Actions & OwnProps> {
 
 	render() {
-		const { route, options } = this.props
-
 		return (
 			<NavigationControllerContext.Consumer>
-				{navigationController => this.renderToolbar(route, navigationController!, options)}
+				{navigationController => this.renderToolbar(navigationController!)}
 			</NavigationControllerContext.Consumer>
 		)
 	}
 
-	private renderToolbar = (route: Route, navigationController: NavigationController, options?: NavigationControllerBarOptions): JSX.Element => {
-		const previousRoute = navigationController.previousRoute(route)
+	private renderToolbar = (navigationController: NavigationController): JSX.Element => {
+		const previousRoute = navigationController.previousRoute(this.props.route)
 		return (
 			<Toolbar>
 				{
-					options && options.left ? (
-						<div className="left">{options.left}</div>
+					this.props.left ? (
+						<div className="left">{this.props.left}</div>
 					) : (previousRoute && (
 						<div className="left">
 							<BackButton onClick={this.pop.bind(this, navigationController)}>
@@ -38,15 +36,15 @@ export default class extends React.Component<Props & Actions & OwnProps> {
 					))
 				}
 				{
-					options && options.center ? (
-						<div className="center">{options.center}</div>
+					this.props.center ? (
+						<div className="center">{this.props.center}</div>
 					) : (
-						<div className="center">{route.title}</div>
+						<div className="center">{this.props.route.title}</div>
 					)
 				}
 				{
-					options && options.right && (
-						<div className="right">{options.right}</div>
+					this.props.right && (
+						<div className="right">{this.props.right}</div>
 					)
 				}
 			</Toolbar>

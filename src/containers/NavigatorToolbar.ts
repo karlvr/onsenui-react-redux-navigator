@@ -11,7 +11,7 @@ import { Dispatch } from 'redux'
 
 /* Import module actions */
 import * as actions from '../actions'
-import { Route, NavigationControllerBarOptions, NavigatorId } from '../types'
+import { Route, NavigatorId } from '../types'
 
 export interface Props {
 	
@@ -22,7 +22,9 @@ export interface Props {
  */
 export interface OwnProps {
 	route: Route
-	options?: NavigationControllerBarOptions
+	left?: React.ReactNode
+	center?: React.ReactNode
+	right?: React.ReactNode
 }
 
 /**
