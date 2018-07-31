@@ -75,11 +75,6 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 	}
 
 	private renderPage = (route: Route, navigator: RouterNavigator) => {
-		const props = {
-			...route.props,
-			route,
-		}
-
 		const Component = this.props.componentRegistry[route.component]
 		if (!Component) {
 			return (
@@ -87,21 +82,19 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 			)
 		}
 
-		/* Support a static createRoute method on the route component class. */
+		/* Support a static augmentRoute method on the route component class. */
 		/* tslint:disable-next-line:no-any */
 		const AnyComponent = Component as any
-		if (AnyComponent.createRoute) {
-			route = AnyComponent.createRoute(route)
+		if (AnyComponent.augmentRoute) {
+			route = AnyComponent.augmentRoute(route)
 		}
 
 		return (
-			<Component {...props} key={route.key} />
+			<Component route={route} {...route.props} key={route.key} />
 		)
 	}
 
-	private renderErrorToolbar = (route: Route) => {
-		return (
-			<NavigatorToolbar route={route} />
-		)
-	}
+	private renderErrorToolbar = (route: Route) => (
+		<NavigatorToolbar route={route} />
+	)
 }
