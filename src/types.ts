@@ -4,11 +4,11 @@ import { RouterUtilRoute, RouterUtilProcessStackItem } from 'react-onsenui'
 export type NavigatorId = string
 export type ComponentId = string
 
-export interface RouteProps<P> {
+export interface RouteProps<P = {}> {
 	route: Route<P>
 }
 
-export interface Route<P> {
+export interface Route<P = {}> {
 	readonly component: ComponentId
 	readonly title?: string
 	readonly key?: string
