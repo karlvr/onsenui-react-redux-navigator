@@ -1,6 +1,7 @@
 import actionCreatorFactory from 'typescript-fsa'
 import { ActionCreator } from 'typescript-fsa'
 import { NavigatorId, Route } from './types'
+import { PageTransitionOptions } from 'react-onsenui'
 
 /**
  * The action creator for this module. Note that it contains the module name.
@@ -11,6 +12,7 @@ const actionCreator = actionCreatorFactory('Routing')
 export interface PushPayload {
 	navigator: NavigatorId
 	route: Route
+	options?: PageTransitionOptions
 }
 
 /** Initialise a navigator's root route. */

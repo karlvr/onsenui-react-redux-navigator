@@ -1,4 +1,5 @@
 import { ReactType } from 'react'
+import { RouterUtilRoute, RouterUtilProcessStackItem } from 'react-onsenui'
 
 export type NavigatorId = string
 export type ComponentId = string
@@ -20,11 +21,9 @@ export interface NavigationController {
 }
 
 /** Dummy type so we don't have to expose our internal onsenui types. */
-export type RouterUtilRoute = {}
-
-/** Dummy type so we don't have to expose our internal onsenui types. */
 export interface RouterUtilState {
 	routeStack: Array<RouterUtilRoute>
+	processStack: Array<RouterUtilProcessStackItem>
 }
 
 export interface ComponentRegistry {

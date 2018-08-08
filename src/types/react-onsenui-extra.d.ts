@@ -1,10 +1,11 @@
-import { NavigatorAnimationTypes } from 'react-onsenui';
+import { NavigatorAnimationTypes, PageTransitionOptions } from 'react-onsenui';
 import { Component } from 'react';
 
 declare module 'react-onsenui' {
 	export interface RouterUtilProcessStackItem {
 		type: string;
 		route: RouterUtilRoute;
+		options?: PageTransitionOptions
 	}
 	
 	export interface RouterUtilState {
@@ -12,18 +13,24 @@ declare module 'react-onsenui' {
 		processStack: Array<RouterUtilProcessStackItem>;
 	}
 	
-	export type RouterUtilRoute = {};
+	export interface RouterUtilRoute {
+		readonly component: string
+		readonly title?: string
+		readonly key?: string
+		readonly props?: {}
+		readonly options?: PageTransitionOptions
+	}
 	
 	export type RouterUtilPushPayload = {
 		routeConfig: RouterUtilState,
 		route: RouterUtilRoute,
-		options?: {},
+		options?: PageTransitionOptions,
 		key?: string,
 	};
 	
 	export type RouterUtilPopPayload = {
 		routeConfig: RouterUtilState,
-		options?: {},
+		options?: PageTransitionOptions,
 		key?: string,
 	};
 	

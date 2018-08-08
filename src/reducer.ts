@@ -57,22 +57,35 @@ export const reducer = reducerWithInitialState(INITIAL_STATE)
 	.case(actions.push, (state, payload) => {
 		let result = { ...state }
 		result.stacks = { ...result.stacks }
-		result.stacks[payload.navigator] = RouterUtil.push(
-			{ routeConfig: result.stacks[payload.navigator] as RealRouterUtilState, 
-			route: completeRoute(payload.route, state.nextRouteKey) })
+		result.stacks[payload.navigator] = RouterUtil.push({
+			routeConfig: result.stacks[payload.navigator] as RealRouterUtilState, 
+			route: completeRoute(payload.route, state.nextRouteKey),
+			options: payload.options,
+		})
 		result.nextRouteKey = state.nextRouteKey + 1
 		return result
 	})
 	.case(actions.pop, (state, navigatorId) => {
 		let result = { ...state }
 		result.stacks = { ...result.stacks }
-		result.stacks[navigatorId] = RouterUtil.pop({ routeConfig: result.stacks[navigatorId] as RealRouterUtilState })
+		const options = result.stacks[navigatorId].routeStack[result.stacks[navigatorId].routeStack.length - 1].options
+		result.stacks[navigatorId] = RouterUtil.pop({
+			routeConfig: result.stacks[navigatorId] as RealRouterUtilState,
+			options,
+		})
 		return result
 	})
 	.case(actions.postPush, (state, navigatorId) => {
 		let result = { ...state }
 		result.stacks = { ...result.stacks }
+		const processItem = result.stacks[navigatorId].processStack[0]
 		result.stacks[navigatorId] = RouterUtil.postPush(result.stacks[navigatorId] as RealRouterUtilState)
+		if (processItem.options) {
+			result.stacks[navigatorId].routeStack[result.stacks[navigatorId].routeStack.length - 1] = {
+				...result.stacks[navigatorId].routeStack[result.stacks[navigatorId].routeStack.length - 1],
+				options: processItem.options
+			}
+		}
 		return result
 	})
 	.case(actions.postPop, (state, navigatorId) => {
