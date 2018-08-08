@@ -11,7 +11,7 @@ const actionCreator = actionCreatorFactory('Routing')
 /** The payload required for the push and init actions. */
 export interface PushPayload {
 	navigator: NavigatorId
-	route: Route
+	route: Route<any>
 	options?: PageTransitionOptions
 }
 

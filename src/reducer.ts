@@ -29,7 +29,7 @@ const INITIAL_STATE: StoreState = {
 }
 
 /** Ensure the route object is complete before it enters the store. */
-function completeRoute(route: Route, nextRouteKey: number): Route {
+function completeRoute(route: Route<any>, nextRouteKey: number): Route<any> {
 	if (!route.key) {
 		/* Auto-assign a key for the route if one wasn't given. */
 		route = { ...route, key: `route-${nextRouteKey}` }

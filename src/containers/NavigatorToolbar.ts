@@ -21,7 +21,7 @@ export interface Props {
  * Interface for properties that the container passes to the component.
  */
 export interface OwnProps {
-	route: Route
+	route: Route<any>
 	title?: string
 	left?: React.ReactNode
 	center?: React.ReactNode

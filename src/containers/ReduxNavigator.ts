@@ -24,7 +24,7 @@ export interface Props {
  */
 export interface OwnProps {
 	id: string
-	rootRoute: Route
+	rootRoute: Route<any>
 	animation?: NavigatorAnimationTypes,
 	animationOptions?: AnimationOptions,
 	swipeable?: boolean,
@@ -46,7 +46,7 @@ export interface OwnProps {
 export interface Actions {
 	onPostPush: () => void
 	onPostPop: () => void
-	init: (route: Route) => void
+	init: (route: Route<any>) => void
 	deinit: () => void
 }
 

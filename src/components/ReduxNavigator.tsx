@@ -19,7 +19,7 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 		return this.props.id
 	}
 
-	previousRoute = (route: Route) => {
+	previousRoute = (route: Route<any>) => {
 		const routeStack = this.props.routeConfig.routeStack
 		let n = routeStack.lastIndexOf(route)
 		if (n === -1) {
@@ -30,7 +30,7 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 			n--
 		}
 		if (routeStack.length > n) {
-			return routeStack[n] as Route
+			return routeStack[n] as Route<any>
 		} else {
 			return undefined
 		}
@@ -74,7 +74,7 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 		}
 	}
 
-	private renderPage = (route: Route, navigator: RouterNavigator) => {
+	private renderPage = (route: Route<any>, navigator: RouterNavigator) => {
 		const Component = this.props.componentRegistry[route.component]
 		if (!Component) {
 			return (
@@ -94,7 +94,7 @@ export default class extends React.Component<Props & OwnProps & Actions> impleme
 		)
 	}
 
-	private renderErrorToolbar = (route: Route) => (
+	private renderErrorToolbar = (route: Route<any>) => (
 		<NavigatorToolbar route={route} />
 	)
 }
