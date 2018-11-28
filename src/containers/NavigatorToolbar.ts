@@ -5,13 +5,13 @@
 /* Import the component from the component path */
 import Component from '../components/NavigatorToolbar'
 
-import { ComponentClass, StatelessComponent } from 'react'
+import { ComponentClass, StatelessComponent } from 'react' /* This import is required for the build to succeed */
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
 /* Import module actions */
 import * as actions from '../actions'
-import { Route, NavigatorId } from '../types'
+import { Route, NavigatorId, NavigationController } from '../types'
 
 export interface Props {
 	
@@ -26,6 +26,12 @@ export interface OwnProps {
 	left?: React.ReactNode
 	center?: React.ReactNode
 	right?: React.ReactNode
+	renderToolbar?: (navigationController: NavigationController, props: OwnProps, actions: RenderToolbarActions) => JSX.Element
+}
+
+export interface RenderToolbarActions {
+	previousRoute: () => Route<any> | undefined
+	pop: () => void
 }
 
 /**

@@ -7,21 +7,26 @@
 import * as React from 'react'
 import { Toolbar, BackButton } from 'react-onsenui'
 import { Props, OwnProps, Actions } from '../containers/NavigatorToolbar'
-import { NavigationController } from '../types'
+import { NavigationController, Route } from '../types'
 import { NavigationControllerContext } from '../NavigatorContext'
 
-export default class extends React.Component<Props & Actions & OwnProps> {
+export default class NavigatorToolbar extends React.Component<Props & Actions & OwnProps> {
 
 	render() {
 		return (
 			<NavigationControllerContext.Consumer>
-				{navigationController => this.renderToolbar(navigationController!)}
+				{navigationController => this.props.renderToolbar 
+					? this.props.renderToolbar(navigationController!, this.props, {
+						previousRoute: () => this.previousRoute(navigationController!),
+						pop: () => this.pop(navigationController!),
+					}) 
+					: this.renderToolbar(navigationController!)}
 			</NavigationControllerContext.Consumer>
 		)
 	}
 
-	private renderToolbar = (navigationController: NavigationController): JSX.Element => {
-		const previousRoute = navigationController.previousRoute(this.props.route)
+	protected renderToolbar = (navigationController: NavigationController): JSX.Element => {
+		const previousRoute = this.previousRoute(navigationController)
 		return (
 			<Toolbar>
 				{
@@ -51,7 +56,11 @@ export default class extends React.Component<Props & Actions & OwnProps> {
 		)
 	}
 
-	private pop = (navigationController: NavigationController) => {
+	public previousRoute = (navigationController: NavigationController): Route<any> | undefined => {
+		return navigationController.previousRoute(this.props.route)
+	}
+
+	public pop = (navigationController: NavigationController) => {
 		this.props.pop(navigationController.getNavigatorId())
 	}
 
