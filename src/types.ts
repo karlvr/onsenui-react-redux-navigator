@@ -1,4 +1,4 @@
-import { ReactType } from 'react'
+import * as React from 'react'
 import { RouterUtilRoute, RouterUtilProcessStackItem } from 'react-onsenui'
 
 export type NavigatorId = string
@@ -27,5 +27,5 @@ export interface RouterUtilState {
 }
 
 export interface ComponentRegistry {
-	[componentId: string]: ReactType
+	[componentId: string]: React.ComponentType
 }

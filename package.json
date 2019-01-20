@@ -1,7 +1,12 @@
 {
   "name": "onsenui-react-redux-navigator",
-  "version": "2.3.3",
+  "version": "2.3.4",
   "description": "An integration between Redux and Onsen UI's Navigator.",
+  "homepage": "https://github.com/karlvr/onsenui-react-redux-navigator",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/karlvr/onsenui-react-redux-navigator.git"
+  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
@@ -22,7 +27,7 @@
     "react-onsenui": "^1.10.0",
     "tslint": "^5.11.0",
     "tslint-react": "^3.6.0",
-    "typescript": "^2.7.2"
+    "typescript": "^3.2.2"
   },
   "dependencies": {
     "typescript-fsa": "^2.5.0",
