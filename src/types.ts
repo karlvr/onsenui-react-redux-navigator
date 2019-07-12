@@ -27,5 +27,5 @@ export interface RouterUtilState {
 }
 
 export interface ComponentRegistry {
-	[componentId: string]: React.ComponentType
+	[componentId: string]: React.ComponentType<any>
 }
