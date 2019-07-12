@@ -7,7 +7,7 @@ import Component from '../components/ReduxNavigator'
 
 import { ComponentClass, StatelessComponent } from 'react'
 import { connect } from 'react-redux'
-import { Dispatch } from 'redux'
+import { Dispatch, Action } from 'redux'
 
 /* Import module actions */
 import * as actions from '../actions'
@@ -61,7 +61,7 @@ const mapStateToProps = (state: any, ownProps: OwnProps): Props => {
 }
 
 /** Populate the Actions with the callbacks for the component. */
-const mapDispatchToProps = (dispatch: Dispatch<{}>, ownProps: OwnProps): Actions => ({
+const mapDispatchToProps = (dispatch: Dispatch<Action<any>>, ownProps: OwnProps): Actions => ({
 	init: (route) => {
 		dispatch(actions.init({ route, navigator: ownProps.id }))
 	},
