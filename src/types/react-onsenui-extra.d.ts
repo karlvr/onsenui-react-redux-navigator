@@ -37,6 +37,8 @@ declare module 'react-onsenui' {
 	export interface RouterUtilType {
 		init: (stack: Array<RouterUtilRoute>) => RouterUtilState;
 		push: (payload: RouterUtilPushPayload) => RouterUtilState;
+		replace: (payload: RouterUtilPushPayload) => RouterUtilState;
+		reset: (payload: RouterUtilPushPayload) => RouterUtilState;
 		pop: (payload: RouterUtilPopPayload) => RouterUtilState;
 		postPush: (routeConfig: RouterUtilState) => RouterUtilState;
 		postPop: (routeConfig: RouterUtilState) => RouterUtilState;

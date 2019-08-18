@@ -65,6 +65,28 @@ export const reducer = reducerWithInitialState(INITIAL_STATE)
 		result.nextRouteKey = state.nextRouteKey + 1
 		return result
 	})
+	.case(actions.replace, (state, payload) => {
+		let result = { ...state }
+		result.stacks = { ...result.stacks }
+		result.stacks[payload.navigator] = RouterUtil.replace({
+			routeConfig: result.stacks[payload.navigator] as RealRouterUtilState, 
+			route: completeRoute(payload.route, state.nextRouteKey),
+			options: payload.options,
+		})
+		result.nextRouteKey = state.nextRouteKey + 1
+		return result
+	})
+	.case(actions.reset, (state, payload) => {
+		let result = { ...state }
+		result.stacks = { ...result.stacks }
+		result.stacks[payload.navigator] = RouterUtil.reset({
+			routeConfig: result.stacks[payload.navigator] as RealRouterUtilState, 
+			route: completeRoute(payload.route, state.nextRouteKey),
+			options: payload.options,
+		})
+		result.nextRouteKey = state.nextRouteKey + 1
+		return result
+	})
 	.case(actions.pop, (state, navigatorId) => {
 		let result = { ...state }
 		result.stacks = { ...result.stacks }

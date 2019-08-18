@@ -23,6 +23,8 @@ export const deinit = actionCreator<NavigatorId>('DEINIT')
 
 /** Push a new route onto a navigator. */
 export const push = actionCreator<PushPayload>('PUSH')
+export const replace = actionCreator<PushPayload>('REPLACE')
+export const reset = actionCreator<PushPayload>('RESET')
 
 /** Pop the top route off a navigator. */
 export const pop = actionCreator<NavigatorId>('POP')
