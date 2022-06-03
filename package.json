@@ -1,6 +1,6 @@
 {
   "name": "onsenui-react-redux-navigator",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "An integration between Redux and Onsen UI's Navigator.",
   "homepage": "https://github.com/karlvr/onsenui-react-redux-navigator",
   "repository": {
