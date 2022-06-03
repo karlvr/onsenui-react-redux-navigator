@@ -27,6 +27,9 @@ export interface OwnProps {
 	center?: React.ReactNode
 	right?: React.ReactNode
 	renderToolbar?: (navigationController: NavigationController, props: OwnProps, actions: RenderToolbarActions) => JSX.Element
+	renderLeft?: (navigationController: NavigationController, props: OwnProps, actions: RenderToolbarActions) => JSX.Element
+	renderCenter?: (navigationController: NavigationController, props: OwnProps) => JSX.Element
+	renderRight?: (navigationController: NavigationController, props: OwnProps) => JSX.Element
 }
 
 export interface RenderToolbarActions {

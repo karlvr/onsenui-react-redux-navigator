@@ -32,25 +32,34 @@ export default class NavigatorToolbar extends React.Component<Props & Actions & 
 				{
 					this.props.left ? (
 						<div className="left">{this.props.left}</div>
-					) : (previousRoute && (
+					) : this.props.renderLeft ? (
+						this.props.renderLeft(navigationController!, this.props, {
+							previousRoute: () => this.previousRoute(navigationController!),
+							pop: () => this.pop(navigationController!),
+						})
+					) : previousRoute && (
 						<div className="left">
 							<BackButton onClick={this.pop.bind(this, navigationController)}>
 								{previousRoute.title}
 							</BackButton>
 						</div>
-					))
+					)
 				}
 				{
 					this.props.center ? (
 						<div className="center">{this.props.center}</div>
+					) : this.props.renderCenter ? (
+						this.props.renderCenter(navigationController!, this.props)
 					) : (
 						<div className="center">{this.props.title || this.props.route.title}</div>
 					)
 				}
 				{
-					this.props.right && (
+					this.props.right ? (
 						<div className="right">{this.props.right}</div>
-					)
+					) : this.props.renderRight ? (
+						this.props.renderRight(navigationController!, this.props)
+					) : null
 				}
 			</Toolbar>
 		)
