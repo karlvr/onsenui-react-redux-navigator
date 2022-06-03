@@ -2490,7 +2490,7 @@ event-emitter@~0.3.5:
 
 event-stream@~3.3.0:
   version "3.3.4"
-  resolved "http://registry.npmjs.org/event-stream/-/event-stream-3.3.4.tgz#4ab4c9a0f5a54db9338b4c34d86bfce8f4b35571"
+  resolved "https://registry.npmjs.org/event-stream/-/event-stream-3.3.4.tgz#4ab4c9a0f5a54db9338b4c34d86bfce8f4b35571"
   dependencies:
     duplexer "~0.1.1"
     from "~0"
@@ -4723,8 +4723,8 @@ merge-stream@^1.0.1:
     readable-stream "^2.0.1"
 
 merge@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/merge/-/merge-1.2.0.tgz#7531e39d4949c281a66b8c5a6e0265e8b05894da"
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/merge/-/merge-1.2.1.tgz#38bebf80c3220a8a487b6fcfb3941bb11720c145"
 
 methods@~1.1.2:
   version "1.1.2"
@@ -5177,10 +5177,10 @@ onetime@^2.0.0:
     mimic-fn "^1.0.0"
 
 onsenui-react-redux-navigator@../:
-  version "1.2.5"
+  version "2.5.0"
   dependencies:
     typescript-fsa "^2.5.0"
-    typescript-fsa-reducers "^0.4.5"
+    typescript-fsa-reducers "^1.2.1"
 
 onsenui@^2.9.2:
   version "2.10.4"
@@ -7334,13 +7334,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript-fsa-reducers@^0.4.5:
-  version "0.4.5"
-  resolved "https://registry.yarnpkg.com/typescript-fsa-reducers/-/typescript-fsa-reducers-0.4.5.tgz#58fffb2f6eeca6817c2f656b7e7df2cb1c9d1f84"
-  dependencies:
-    typescript-fsa "^2.0.0"
+typescript-fsa-reducers@^1.2.1:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/typescript-fsa-reducers/-/typescript-fsa-reducers-1.2.2.tgz#1e2c8e8a50ca3e09e0d6fdf2a3b42bdd17de8094"
 
-typescript-fsa@^2.0.0, typescript-fsa@^2.5.0:
+typescript-fsa@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/typescript-fsa/-/typescript-fsa-2.5.0.tgz#1baec01b5e8f5f34c322679d1327016e9e294faf"
 
